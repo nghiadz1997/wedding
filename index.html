@@ -7,30 +7,27 @@
   <meta name="theme-color" content="#6B0F1A">
   <title>Thanh Đa ❤️ Ngọc Lam | 08.08.2026</title>
 
-  <!-- PWA Manifest -->
   <link rel="manifest" href="manifest.json">
   <link rel="apple-touch-icon" href="icon-192.png">
 
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-  <!-- AOS -->
   <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
 
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- ========== LOADING SCREEN ========== -->
+<button id="music-btn" title="Bật/Tắt Nhạc">🔊</button>
+
 <div id="loading-screen">
   <div class="loading-cross">✝</div>
   <div class="loading-text">LOADING...</div>
   <div class="loading-bar"><div class="loading-fill"></div></div>
 </div>
 
-<!-- ========== ENVELOPE SCREEN ========== -->
 <div id="envelope-screen">
   <div class="rose-petals" id="petals-container"></div>
   <div class="envelope-content">
@@ -45,13 +42,10 @@
   </div>
 </div>
 
-<!-- ========== MAIN CONTENT ========== -->
 <main id="main-content" class="hidden">
 
-  <!-- Rose petals floating -->
   <div class="rose-petals" id="main-petals"></div>
 
-  <!-- NAV -->
   <nav id="navbar">
     <div class="nav-inner">
       <span class="nav-logo">Đ✝L</span>
@@ -68,7 +62,6 @@
     </div>
   </nav>
 
-  <!-- ========== HERO ========== -->
   <section id="hero">
     <div class="hero-overlay"></div>
     <div class="hero-flowers-left"></div>
@@ -90,7 +83,6 @@
     <div class="hero-scroll-hint">↓</div>
   </section>
 
-  <!-- ========== COUNTDOWN ========== -->
   <section id="countdown" data-aos="fade-up">
     <p class="section-eyebrow">⏳ ĐẾM NGƯỢC</p>
     <h2 class="section-title">NGÀY TRỌNG ĐẠI CÒN</h2>
@@ -118,7 +110,6 @@
     <p class="countdown-quote">"Hai người hơn một, vì họ được công lao tốt hơn" — Truyền Đạo 4:9</p>
   </section>
 
-  <!-- ========== CALENDAR ========== -->
   <section id="calendar-section" data-aos="fade-up">
     <p class="section-eyebrow">📅 LỊCH</p>
     <h2 class="section-title">THÁNG 08 — 2026</h2>
@@ -127,7 +118,6 @@
     </div>
   </section>
 
-  <!-- ========== CEREMONY INFO ========== -->
   <section id="ceremony" data-aos="fade-up">
     <div class="ceremony-inner">
       <p class="section-eyebrow">✝ LỄ CỬ HÀNH</p>
@@ -145,7 +135,7 @@
         </div>
         <div class="ceremony-card ceremony-card--center" data-aos="fade-up">
           <div class="cross-big">✝</div>
-          <p class="card-verse">"Tình yêu hay nhịn nhục,<br>hay nhân từ..."<br>— 1 Cô-rinh-tô 13:4</p>
+          <p class="card-verse">"Tình yêu hay nhịn nhục,<br>hay nhân từ..."<br><span class="verse-ref">— 1 Cô-rinh-tô 13:4</span></p>
         </div>
         <div class="ceremony-card" data-aos="fade-left">
           <div class="card-icon">🕐</div>
@@ -159,7 +149,6 @@
     </div>
   </section>
 
-  <!-- ========== STORY ========== -->
   <section id="story" data-aos="fade-up">
     <p class="section-eyebrow">💑 CHUYỆN TÌNH</p>
     <h2 class="section-title">HÀNH TRÌNH CỦA CHÚNG TÔI</h2>
@@ -191,23 +180,19 @@
     </div>
   </section>
 
-  <!-- ========== GALLERY ========== -->
   <section id="gallery" data-aos="fade-up">
     <p class="section-eyebrow">📸 KỶ NIỆM</p>
     <h2 class="section-title">ALBUM ẢNH CƯỚI</h2>
     <div class="gallery-grid" id="gallery-grid">
-      <!-- Gallery items injected by JS -->
-    </div>
-    <!-- Lightbox -->
+      </div>
     <div id="lightbox" onclick="closeLightbox()">
       <button class="lb-close" onclick="closeLightbox()">✕</button>
-      <button class="lb-prev" onclick="prevPhoto(event)">&#8249;</button>
+      <button class="lb-prev" onclick="prevPhoto(event)">‹</button>
       <img id="lb-img" src="" alt="">
-      <button class="lb-next" onclick="nextPhoto(event)">&#8250;</button>
+      <button class="lb-next" onclick="nextPhoto(event)">›</button>
     </div>
   </section>
 
-  <!-- ========== VIDEO ========== -->
   <section id="video-section" data-aos="fade-up">
     <p class="section-eyebrow">🎬 VIDEO</p>
     <h2 class="section-title">KHOẢNH KHẮC YÊU THƯƠNG</h2>
@@ -216,13 +201,10 @@
         <div class="video-play-btn">▶</div>
         <p>Video kỷ niệm của Thanh Đa & Ngọc Lam</p>
         <p class="video-note">Thay src bằng link YouTube hoặc MP4 của bạn</p>
-        <!-- Uncomment để nhúng YouTube: -->
-        <!-- <iframe src="https://www.youtube.com/embed/VIDEO_ID" frameborder="0" allowfullscreen></iframe> -->
-      </div>
+        </div>
     </div>
   </section>
 
-  <!-- ========== MAP ========== -->
   <section id="map-section" data-aos="fade-up">
     <p class="section-eyebrow">🗺️ ĐỊA ĐIỂM</p>
     <h2 class="section-title">NHÀ THỜ TIN LÀNH VŨNG TÀU</h2>
@@ -242,7 +224,6 @@
     </div>
   </section>
 
-  <!-- ========== RSVP ========== -->
   <section id="rsvp" data-aos="fade-up">
     <p class="section-eyebrow">✉️ XÁC NHẬN</p>
     <h2 class="section-title">XÁC NHẬN THAM DỰ</h2>
@@ -279,16 +260,13 @@
     </div>
   </section>
 
-  <!-- ========== WISHES ========== -->
   <section id="wishes" data-aos="fade-up">
     <p class="section-eyebrow">💌 LỜI CHÚC</p>
     <h2 class="section-title">SỔ LƯU BÚT</h2>
     <div class="wishes-grid" id="wishes-grid">
-      <!-- Injected by JS -->
-    </div>
+      </div>
   </section>
 
-  <!-- ========== FOOTER ========== -->
   <footer id="footer">
     <div class="footer-cross">✝</div>
     <p class="footer-verse">Tạ ơn Chúa đã dẫn dắt chúng con đến với nhau.</p>
@@ -300,7 +278,10 @@
 
 </main>
 
-<!-- AOS -->
+<audio id="bg-music" loop preload="auto">
+  <source src="./nhacnen.mp3" type="audio/mpeg">
+</audio>
+
 <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
 <script src="script.js"></script>
 </body>

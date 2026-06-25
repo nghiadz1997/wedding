@@ -6,7 +6,6 @@ window.addEventListener("load", () => {
     const loading = document.getElementById("loading-screen");
     if (loading) {
       loading.style.opacity = "0";
-
       setTimeout(() => {
         loading.style.display = "none";
       }, 800);
@@ -20,6 +19,23 @@ window.addEventListener("load", () => {
 function openInvitation() {
   const envelope = document.getElementById("envelope-screen");
   const main = document.getElementById("main-content");
+  const music = document.getElementById("bg-music");
+
+  if (music) {
+    music.volume = 0;
+    music.play().catch(() => {});
+
+    let volume = 0;
+    const fadeMusic = setInterval(() => {
+      volume += 0.05;
+      if (volume >= 0.4) {
+        music.volume = 0.4;
+        clearInterval(fadeMusic);
+      } else {
+        music.volume = volume;
+      }
+    }, 200);
+  }
 
   if (envelope) {
     envelope.style.opacity = "0";
@@ -27,17 +43,15 @@ function openInvitation() {
 
     setTimeout(() => {
       envelope.style.display = "none";
-      main.classList.remove("hidden");
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
+
+      if (main) {
+        main.classList.remove("hidden");
+      }
+
+      window.scrollTo({ top: 0, behavior: "smooth" });
 
       if (typeof AOS !== "undefined") {
-        AOS.init({
-          duration: 1000,
-          once: true
-        });
+        AOS.init({ duration: 1000, once: true });
       }
     }, 1000);
   }
@@ -48,15 +62,27 @@ function openInvitation() {
 // =========================
 function toggleNav() {
   const menu = document.querySelector("#navbar ul");
-  if (menu) menu.classList.toggle("open");
+  if (menu) {
+    menu.classList.toggle("open");
+  }
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll("#navbar a").forEach(link => {
+    link.addEventListener("click", () => {
+      const menu = document.querySelector("#navbar ul");
+      if (menu) {
+        menu.classList.remove("open");
+      }
+    });
+  });
+});
 
 // =========================
 // NAVBAR SCROLL
 // =========================
 window.addEventListener("scroll", () => {
   const nav = document.getElementById("navbar");
-
   if (!nav) return;
 
   if (window.scrollY > 50) {
@@ -70,44 +96,29 @@ window.addEventListener("scroll", () => {
 // COUNTDOWN
 // =========================
 function updateCountdown() {
+  const daysEl = document.getElementById("cd-days");
+  const hoursEl = document.getElementById("cd-hours");
+  const minsEl = document.getElementById("cd-mins");
+  const secsEl = document.getElementById("cd-secs");
 
-  const targetDate = new Date(
-    "2026-08-08T11:30:00"
-  ).getTime();
+  // Nếu không có các thẻ này trên trang, dừng chạy để tránh báo lỗi
+  if (!daysEl || !hoursEl || !minsEl || !secsEl) return;
 
+  const targetDate = new Date("2026-08-08T11:30:00").getTime();
   const now = new Date().getTime();
-
   const distance = targetDate - now;
 
   if (distance < 0) return;
 
-  const days = Math.floor(
-    distance / (1000 * 60 * 60 * 24)
-  );
+  const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const mins = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  const secs = Math.floor((distance % (1000 * 60)) / 1000);
 
-  const hours = Math.floor(
-    (distance % (1000 * 60 * 60 * 24)) /
-    (1000 * 60 * 60)
-  );
-
-  const mins = Math.floor(
-    (distance % (1000 * 60 * 60)) /
-    (1000 * 60)
-  );
-
-  const secs = Math.floor(
-    (distance % (1000 * 60)) / 1000
-  );
-
-  const d = document.getElementById("cd-days");
-  const h = document.getElementById("cd-hours");
-  const m = document.getElementById("cd-mins");
-  const s = document.getElementById("cd-secs");
-
-  if (d) d.textContent = days;
-  if (h) h.textContent = hours;
-  if (m) m.textContent = mins;
-  if (s) s.textContent = secs;
+  daysEl.textContent = String(days).padStart(2, "0");
+  hoursEl.textContent = String(hours).padStart(2, "0");
+  minsEl.textContent = String(mins).padStart(2, "0");
+  secsEl.textContent = String(secs).padStart(2, "0");
 }
 
 setInterval(updateCountdown, 1000);
@@ -117,23 +128,16 @@ updateCountdown();
 // CALENDAR
 // =========================
 function generateCalendar() {
-
-  const grid =
-    document.getElementById("calendar-grid");
-
+  const grid = document.getElementById("calendar-grid");
   if (!grid) return;
 
-  const days = [
-    "MON",
-    "TUE",
-    "WED",
-    "THU",
-    "FRI",
-    "SAT",
-    "SUN"
-  ];
-
+  const days = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"];
   grid.innerHTML = "";
+
+  const header = document.createElement("div");
+  header.className = "cal-header";
+  header.textContent = "THÁNG 08 / 2026";
+  grid.appendChild(header);
 
   days.forEach(day => {
     const el = document.createElement("div");
@@ -152,9 +156,7 @@ function generateCalendar() {
   }
 
   for (let d = 1; d <= 31; d++) {
-
     const day = document.createElement("div");
-
     day.className = "cal-day";
 
     if (d === 8) {
@@ -162,7 +164,6 @@ function generateCalendar() {
     }
 
     day.textContent = d;
-
     grid.appendChild(day);
   }
 }
@@ -173,37 +174,23 @@ generateCalendar();
 // PETALS
 // =========================
 function createPetals(containerId) {
-
-  const container =
-    document.getElementById(containerId);
-
+  const container = document.getElementById(containerId);
   if (!container) return;
 
   setInterval(() => {
-
-    const petal =
-      document.createElement("div");
-
+    const petal = document.createElement("div");
     petal.className = "petal";
-
     petal.innerHTML = "🌸";
-
-    petal.style.left =
-      Math.random() * 100 + "%";
-
-    petal.style.animationDuration =
-      5 + Math.random() * 8 + "s";
-
-    petal.style.fontSize =
-      10 + Math.random() * 20 + "px";
+    petal.style.left = Math.random() * 100 + "%";
+    petal.style.fontSize = 10 + Math.random() * 15 + "px";
+    petal.style.animationDuration = 5 + Math.random() * 8 + "s";
 
     container.appendChild(petal);
 
     setTimeout(() => {
       petal.remove();
     }, 15000);
-
-  }, 500);
+  }, window.innerWidth < 768 ? 1200 : 500);
 }
 
 createPetals("petals-container");
@@ -213,145 +200,133 @@ createPetals("main-petals");
 // GALLERY
 // =========================
 const galleryImages = [
-  "https://picsum.photos/600/800?1",
-  "https://picsum.photos/600/900?2",
-  "https://picsum.photos/600/700?3",
-  "https://picsum.photos/600/850?4",
-  "https://picsum.photos/600/750?5",
-  "https://picsum.photos/600/950?6"
+  "images/1.jpg",
+  "images/2.jpg",
+  "images/3.jpg",
+  "images/4.jpg",
+  "images/5.jpg",
+  "images/6.jpg"
 ];
 
 let currentIndex = 0;
 
 function buildGallery() {
-
-  const grid =
-    document.getElementById("gallery-grid");
-
+  const grid = document.getElementById("gallery-grid");
   if (!grid) return;
 
   galleryImages.forEach((src, index) => {
-
-    const item =
-      document.createElement("div");
-
+    const item = document.createElement("div");
     item.className = "gallery-item";
-
-    item.innerHTML =
-      `<img src="${src}" loading="lazy">`;
-
-    item.onclick = () => {
-      openLightbox(index);
-    };
-
+    item.innerHTML = `<img src="${src}" loading="lazy">`;
+    item.onclick = () => openLightbox(index);
     grid.appendChild(item);
   });
 }
 
 function openLightbox(index) {
-
   currentIndex = index;
-
-  document
-    .getElementById("lightbox")
-    .classList.add("open");
-
-  document
-    .getElementById("lb-img")
-    .src = galleryImages[index];
+  const lightbox = document.getElementById("lightbox");
+  const lbImg = document.getElementById("lb-img");
+  
+  if (lightbox && lbImg) {
+    lightbox.classList.add("open");
+    lbImg.src = galleryImages[index];
+  }
 }
 
 function closeLightbox() {
-  document
-    .getElementById("lightbox")
-    .classList.remove("open");
+  const lightbox = document.getElementById("lightbox");
+  if (lightbox) {
+    lightbox.classList.remove("open");
+  }
 }
 
 function prevPhoto(e) {
   e.stopPropagation();
-
   currentIndex--;
-
   if (currentIndex < 0) {
     currentIndex = galleryImages.length - 1;
   }
-
   openLightbox(currentIndex);
 }
 
 function nextPhoto(e) {
   e.stopPropagation();
-
   currentIndex++;
-
   if (currentIndex >= galleryImages.length) {
     currentIndex = 0;
   }
-
   openLightbox(currentIndex);
 }
 
 buildGallery();
 
 // =========================
+// MUSIC
+// =========================
+const musicBtn = document.getElementById("music-btn");
+const bgMusic = document.getElementById("bg-music");
+
+if (musicBtn && bgMusic) {
+  musicBtn.addEventListener("click", () => {
+    if (bgMusic.paused) {
+      bgMusic.play();
+      musicBtn.innerHTML = "🔊";
+    } else {
+      bgMusic.pause();
+      musicBtn.innerHTML = "🔇";
+    }
+  });
+}
+
+// =========================
 // RSVP
 // =========================
 function submitRSVP() {
+  const name = document.getElementById("rsvp-name");
+  const successMsg = document.getElementById("rsvp-success");
 
-  const name =
-    document.getElementById("rsvp-name");
+  if (!name) return; // Tránh lỗi null nếu thẻ input không tồn tại
 
   if (!name.value.trim()) {
     alert("Vui lòng nhập họ tên");
     return;
   }
 
-  document
-    .getElementById("rsvp-success")
-    .classList.remove("hidden");
-
-  name.value = "";
-  document.getElementById("rsvp-phone").value = "";
-  document.getElementById("rsvp-message").value = "";
+  if (successMsg) {
+    successMsg.classList.remove("hidden");
+  }
 }
 
 // =========================
-// SAMPLE WISHES
+// WISHES
 // =========================
 const wishes = [
   {
-    name: "Nguyễn Văn A",
-    text: "Chúc hai bạn trăm năm hạnh phúc."
+    name: "Nguyễn Trọng Nghĩa ( Em Trai )",
+    text: "Chúc anh chị trăm năm hạnh phúc, luôn yêu thương và đồng hành cùng nhau."
   },
   {
-    name: "Trần Thị B",
-    text: "Chúc gia đình luôn bình an."
+    name: "Nguyễn Thúy Vy ( Chị Gái )",
+    text: "Chúc hai em xây dựng gia đình viên mãn, hạnh phúc và đầy phước hạnh."
   },
   {
-    name: "Lê Văn C",
-    text: "Nguyện Chúa ban phước cho hai bạn."
+    name: "Phạm Ngọc Sanh ( Em Trai )",
+    text: "Chúc anh chị sớm sinh quý tử, gia đình luôn bình an và sung túc."
   }
 ];
 
 function renderWishes() {
-
-  const grid =
-    document.getElementById("wishes-grid");
-
+  const grid = document.getElementById("wishes-grid");
   if (!grid) return;
 
   wishes.forEach(w => {
-
-    const card =
-      document.createElement("div");
-
+    const card = document.createElement("div");
     card.className = "wish-card";
-
     card.innerHTML = `
       <div class="wish-name">${w.name}</div>
       <div class="wish-text">${w.text}</div>
     `;
-
     grid.appendChild(card);
   });
 }

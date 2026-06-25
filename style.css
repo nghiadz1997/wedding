@@ -373,11 +373,13 @@ section {
 }
 
 .hero-eyebrow {
-  font-size: 0.65rem;
-  letter-spacing: 6px;
-  color: var(--champagne-light);
-  font-weight: 500;
+  font-size: clamp(0.9rem, 3vw, 1.2rem); /* Chữ to hơn và tự động thu phóng theo màn hình */
+  letter-spacing: 5px; /* Giãn cách chữ vừa phải */
+  color: var(--champagne); /* Màu vàng đồng đậm đà hơn */
+  font-weight: 700; /* Làm chữ in đậm hẳn lên */
   margin-bottom: 30px;
+  text-shadow: 0 3px 10px rgba(0, 0, 0, 0.6); /* Đổ bóng đen phía sau để chữ cực kỳ nổi bật */
+  text-transform: uppercase;
 }
 
 .hero-groom, .hero-bride {
@@ -512,10 +514,13 @@ section {
   text-align: center;
   font-family: var(--font-serif);
   font-style: italic;
-  color: rgba(255,255,255,0.6);
-  font-size: 0.9rem;
-  max-width: 500px;
+  color: var(--champagne-light); /* Đổi màu vàng sáng để nổi trên nền đỏ */
+  font-size: 1.2rem; /* Tăng kích thước chữ */
+  font-weight: 600; /* Làm chữ đậm hơn */
+  max-width: 600px;
   margin: 0 auto;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.4); /* Thêm bóng đổ giúp chữ có chiều sâu */
+  line-height: 1.6;
 }
 
 /* ===========================
@@ -730,11 +735,12 @@ section {
 .card-verse {
   font-family: var(--font-serif);
   font-style: italic;
-  font-size: 0.85rem;
-  color: rgba(255,255,255,0.85);
-  line-height: 1.9;
+  font-size: 1.2rem; /* Tăng kích thước chữ */
+  color: var(--white); /* Đổi sang màu trắng tinh */
+  font-weight: 600; /* Làm chữ đậm hơn */
+  line-height: 1.8;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3); /* Thêm bóng đổ */
 }
-
 .ceremony-closing {
   font-size: 0.85rem;
   color: var(--text-light);
@@ -1148,15 +1154,17 @@ section {
 }
 
 .footer-verse {
-  font-size: 0.85rem;
-  color: rgba(255,255,255,0.7);
+  font-family: var(--font-serif);
+  font-size: 1.15rem; /* Tăng kích thước chữ */
+  color: var(--champagne-light); /* Đổi sang màu vàng champagne */
   font-style: italic;
+  font-weight: 600; /* Làm chữ đậm hơn */
   margin-bottom: 24px;
   letter-spacing: 1px;
-  max-width: 400px;
+  max-width: 500px;
   margin-left: auto;
   margin-right: auto;
-  margin-bottom: 24px;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3); /* Thêm bóng đổ */
 }
 
 .footer-names {
@@ -1191,18 +1199,115 @@ section {
 /* ===========================
    RESPONSIVE
    =========================== */
-@media (max-width: 600px) {
-  .countdown-item { min-width: 70px; padding: 20px 8px; }
-  .countdown-sep { display: none; }
-  .story-item { flex-direction: column; }
-  .story-item--right { flex-direction: column; text-align: left; }
-  .gallery-grid { columns: 2 140px; }
-  .rsvp-form-wrap { padding: 24px 16px; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    transition-duration: 0.01ms !important;
+@media (max-width: 768px) {
+  /* Thu gọn khoảng cách các section để cuộn mượt hơn */
+  section { 
+    padding: 60px 15px; 
   }
+
+  /* Typography thu nhỏ lại cho vừa khung hình */
+  .section-title { 
+    font-size: 1.8rem; 
+    margin-bottom: 30px;
+  }
+  
+  .env-names { 
+    font-size: 2.2rem; 
+  }
+
+  /* Tối ưu bộ đếm ngược */
+  .countdown-grid {
+    gap: 10px;
+  }
+  .countdown-item { 
+    min-width: 65px; 
+    padding: 15px 5px; 
+  }
+  .countdown-item span {
+    font-size: 1.8rem;
+  }
+  .countdown-sep { 
+    font-size: 1.5rem; 
+    padding-bottom: 10px;
+  }
+
+  /* Tối ưu khối Story (Chuyện tình) chuyển thành dạng dọc */
+  .story-item { 
+    flex-direction: column; 
+    align-items: center; 
+    text-align: center;
+  }
+  .story-item--right { 
+    flex-direction: column; 
+    text-align: center; 
+  }
+  .story-dot {
+    margin-bottom: -15px;
+    z-index: 2;
+  }
+  .story-connector { 
+    padding: 30px 0;
+    transform: rotate(90deg); /* Dựng dọc đường nối */
+  }
+
+  /* Lưới ảnh Album */
+  .gallery-grid { 
+    columns: 2 150px; 
+    column-gap: 10px; 
+  }
+  .gallery-item {
+    margin-bottom: 10px;
+  }
+
+  /* Form RSVP thu gọn */
+  .rsvp-form-wrap { 
+    padding: 24px 15px; 
+  }
+  .rsvp-field input, 
+  .rsvp-field select, 
+  .rsvp-field textarea {
+    padding: 12px;
+  }
+
+  /* Lưới Lời chúc */
+  .wishes-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Chỉnh lại nút nhạc cho khỏi lẹm vào màn hình */
+  #music-btn {
+    bottom: 20px;
+    right: 20px;
+    width: 45px;
+    height: 45px;
+    font-size: 1.2rem;
+  }
+  
+  /* Lớp phủ mở thiệp */
+  .envelope-content {
+    padding: 30px 20px;
+  }
+}
+/* ===========================
+   MUSIC BUTTON
+   =========================== */
+#music-btn {
+  display: none !important; /* Dòng này sẽ ẩn hoàn toàn nút loa */
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 998;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid var(--champagne);
+  border-radius: 50%;
+  width: 55px;
+  height: 55px;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  color: var(--burgundy);
+  box-shadow: 0 4px 12px rgba(107, 15, 26, 0.2);
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
 }
