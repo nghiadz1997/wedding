@@ -200,12 +200,9 @@ createPetals("main-petals");
 // GALLERY
 // =========================
 const galleryImages = [
-  "img/1.JPG",
-  "img/2.JPG",
-  "img/3.JPG",
+  "img/6.JPG",
   "img/4.JPG",
-  "img/5.JPG",
-  "img/6.JPG"
+  "img/5.JPG"
 ];
 
 let currentIndex = 0;
