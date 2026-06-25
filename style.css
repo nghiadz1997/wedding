@@ -861,6 +861,8 @@ section {
 
 .gallery-item img {
   width: 100%;
+  aspect-ratio: 2 / 3; /* Ép tỷ lệ khung hình dọc (bạn có thể thử 3 / 4 nếu muốn chữ nhật lùn hơn một chút) */
+  object-fit: cover; /* Tự động lấp đầy khung dọc, cắt bỏ phần dư thừa mà không làm méo ảnh */
   display: block;
   transition: transform 0.5s ease;
 }
