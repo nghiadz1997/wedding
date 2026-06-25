@@ -202,7 +202,8 @@ createPetals("main-petals");
 const galleryImages = [
   "img/6.JPG",
   "img/4.JPG",
-  "img/5.JPG"
+  "img/5.JPG",
+  "img/2.JPG",
 ];
 
 let currentIndex = 0;
