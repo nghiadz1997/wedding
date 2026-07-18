@@ -767,12 +767,18 @@ section {
   margin: 0 auto;
 }
 
-.story-connector {
-  display: flex; align-items: center; justify-content: center;
-  gap: 12px;
-  color: var(--champagne);
-  font-size: 1.2rem;
-  padding: 16px 0;
+/* Tìm và thay thế đoạn story-connector cũ trong phần @media (max-width: 768px) */
+.story-connector { 
+    padding: 10px 0;
+    transform: none; /* Bỏ xoay 90 độ */
+    width: 2px;      /* Đặt chiều rộng nhỏ để làm đường thẳng */
+    background: linear-gradient(to bottom, transparent, var(--champagne), transparent);
+    margin: 0 auto;  /* Căn giữa */
+}
+
+/* Ẩn các icon thừa trên đường nối ở mobile nếu cần */
+.story-connector span {
+    display: none; 
 }
 
 .story-line {
