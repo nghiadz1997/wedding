@@ -15,16 +15,15 @@ window.addEventListener("load", () => {
 
 // =========================
 // OPEN INVITATION
-// =========================
 function openInvitation() {
   const envelope = document.getElementById("envelope-screen");
   const main = document.getElementById("main-content");
   const music = document.getElementById("bg-music");
 
+  // Xử lý nhạc nền (giữ nguyên code của bạn)
   if (music) {
     music.volume = 0;
     music.play().catch(() => {});
-
     let volume = 0;
     const fadeMusic = setInterval(() => {
       volume += 0.05;
@@ -48,6 +47,19 @@ function openInvitation() {
         main.classList.remove("hidden");
       }
 
+      // --- THÊM ĐOẠN NÀY ĐỂ TỰ CHẠY VIDEO ---
+      const videoContainer = document.getElementById("video-container");
+      if (videoContainer) {
+        videoContainer.innerHTML = `
+          <iframe width="100%" height="500" 
+            src="https://www.youtube.com/watch?v=L_Mo-9odcnI" 
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+            allowfullscreen>
+          </iframe>`;
+      }
+      // --------------------------------------
+
       window.scrollTo({ top: 0, behavior: "smooth" });
 
       if (typeof AOS !== "undefined") {
@@ -56,8 +68,6 @@ function openInvitation() {
     }, 1000);
   }
 }
-
-// =========================
 // MOBILE NAV
 // =========================
 function toggleNav() {
@@ -200,10 +210,10 @@ createPetals("main-petals");
 // GALLERY
 // =========================
 const galleryImages = [
-  "img/6.JPG",
-  "img/4.JPG",
-  "img/5.JPG",
-  "img/2.JPG",
+  "img/DSC_7906.JPG",
+  "img/DSC_8114.JPG",
+  "img/DSC_8399.JPG",
+  "img/DSC_8481.JPG"
 ];
 
 let currentIndex = 0;
