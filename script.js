@@ -210,10 +210,10 @@ createPetals("main-petals");
 // GALLERY
 // =========================
 const galleryImages = [
-  "img/DSC_7906.JPG",
-  "img/DSC_8114.JPG",
-  "img/DSC_8399.JPG",
-  "img/DSC_8481.JPG"
+  "img/1.JPG",
+  "img/2.JPG",
+  "img/3.JPG",
+  "img/4.JPG"
 ];
 
 let currentIndex = 0;
